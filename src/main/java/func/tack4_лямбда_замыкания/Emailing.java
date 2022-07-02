@@ -1,7 +1,6 @@
-package func.tack4;
+package func.tack4_лямбда_замыкания;
 
 import java.util.Scanner;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 
 //In this exercise, you need to write a function that formats email messages according to a certain format. This format states that a message consists of four parts: a sender's email, a receiver's email, a text, and a signature. All the parts are separated by the special "|" character. To write the formatter, you need to use a lambda expression that takes only text as the argument and captures all other variables (sender, receiver and signature) from the context.

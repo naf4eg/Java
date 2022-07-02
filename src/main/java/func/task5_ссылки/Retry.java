@@ -1,4 +1,4 @@
-package func.task5;
+package func.task5_ссылки;
 
 @FunctionalInterface
 interface Retry {

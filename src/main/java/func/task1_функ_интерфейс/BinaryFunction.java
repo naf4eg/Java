@@ -1,4 +1,4 @@
-package func.task1;
+package func.task1_функ_интерфейс;
 
 @FunctionalInterface
 interface BinaryFunction <ONE,TWO,RESULT> {

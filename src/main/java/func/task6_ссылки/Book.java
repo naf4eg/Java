@@ -1,4 +1,4 @@
-package func.task6;
+package func.task6_ссылки;
 
 import java.util.Objects;
 

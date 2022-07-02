@@ -1,4 +1,4 @@
-package func.task5;
+package func.task5_ссылки;
 
 final class RetryUtils {
     public static Retry retry = RetryUtils::retryAction;

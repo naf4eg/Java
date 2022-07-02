@@ -1,4 +1,4 @@
-package func.task3;
+package func.task3_лямбда;
 
 import java.util.Scanner;
 

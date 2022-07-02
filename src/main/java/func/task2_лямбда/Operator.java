@@ -1,4 +1,4 @@
-package func.task2;
+package func.task2_лямбда;
 
 import java.util.function.BiFunction;
 
