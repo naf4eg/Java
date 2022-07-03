@@ -13,8 +13,10 @@ import java.util.function.Predicate;
 public class Main {
 
     public static void main (String[] args) {
-        Predicate<Integer> one = x -> x == 1;
+        Predicate<Integer> one = x -> x == 10;
         Predicate<Integer> two = x -> x == 10;
+
+        System.out.println(one.and(two).test(10));
 
         var result = xor(one, two);
         System.out.println(result.test(10));
