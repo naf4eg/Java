@@ -3,6 +3,15 @@ package func.example_optional;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+/*
+While Optional provides a lot of improvements, it's easy to misuse it. There are a few pieces of advice that can help you to avoid such mistakes:
+
+1) Avoid returning null. In most cases, the clients of your API expect that the response is safe. Returning null leads to NullPointerException, and it's a bad way to build your API. One option is to return the Optional.empty instead.
+2) Don't use Optional as a method parameter. If the method has an Optional parameter, you have to do the unnecessary wrapping and pack an argument into Optional. It leads to low code readability. If the method parameter is optional to have, use overloading instead.
+3) In most cases, it's more convenient to use the Optional.map and the Optional.flatMap instead of the Optional.ifPresent to avoid unnecessary if checks.
+4) Since Optional is not serializable, don't use it for class fields. The primary design goal of Optional is to be used as the return value of functions when a return value might be absent.
+5) Last but not least: keep it simple, don't overuse Optional.
+ */
 public class Main {
     public static void main (String[] args) {
         /* created empty Optional*/
@@ -59,10 +68,133 @@ public class Main {
             System.out.println("Optional orElseThrow: " + "RuntimeException"); // Hello world
         }
 
+        /* Conditional actions */
+        Optional
+            .of("t-1000")
+            .ifPresent(ver -> System.out.println(ver.toUpperCase())); //T-1000
+
+        Optional
+            .of("t-1000")
+            .ifPresentOrElse(
+                value -> System.out.println(value.toUpperCase()), //call this method
+                () -> System.out.println("Optional is empty")
+            );
+
+        Optional
+            .empty()
+            .ifPresentOrElse(
+                System.out::println,
+                () -> System.out.println("Optional is empty") //call this method
+            );
+
+        Optional
+            .of("T-1000")
+            .or(() -> Optional.of("T-800"))
+            .ifPresent(System.out::println); //T-1000
+
+        Optional
+            .empty()
+            .or(() -> Optional.of("T-800"))
+            .ifPresent(System.out::println); //T-800
+
+        /* Filtering Optionals */
+        Optional
+            .of("V-1000")
+            .filter(str -> str.contains("1000"))
+            .ifPresent(System.out::println); //V-1000
+
+        Optional
+            .of("R-1000")
+            .filter(str -> str.contains("43"))
+            .ifPresent(System.out::println); //dont called
+
+        /* use MAP func Optional<T> -> Optional<U> */
+        Engine engine = new Engine("diesel");
+        Robot robot = new Robot(engine);
+        robot.getEngine().ifPresent(value-> System.out.println(value.getName())); //diesel
+        robot.engineNameToUppercase(engine).ifPresent(System.out::println); //DIESEL
+        Robot.engineNameToUppercase2(robot).ifPresent(System.out::println); //DIESEL 2
+
+        /* best practice */
+        String version1 = Optional
+            .ofNullable(new Robot(new Engine("Electrical", new Battery("version 11-333"))))
+            .flatMap(Robot::getEngine)
+            .flatMap(Engine::getBattery)
+            .map(Battery::getVersion)
+            .orElse("Battery version is unknown");
+        System.out.println("Battery version: " + version1); //version 11-333
+
+        String version11 = Optional
+            .ofNullable(new Robot(new Engine("Fuel")))
+            .flatMap(Robot::getEngine)
+            .flatMap(Engine::getBattery)
+            .map(Battery::getVersion)
+            .orElse("Battery version is unknown");
+        System.out.println("Battery version: " + version11); //Battery version is unknown
 
     }
 
     static String getStringValue() {
         return "Hello world";
+    }
+
+    static class Engine {
+        private final String name;
+        private  Battery battery;
+
+        public Engine (String name, Battery battery) {
+            this.name = name;
+            this.battery = battery;
+        }
+
+        Engine (String name) {
+            this.name = name;
+        }
+
+        public String getName () {
+            return name;
+        }
+
+        public Optional<Battery> getBattery() {
+            return Optional.ofNullable(battery);
+        }
+    }
+
+    static class Robot {
+        private final Engine engine;
+
+        Robot (Engine engine) {
+            this.engine = engine;
+        }
+
+        public Optional<Engine> getEngine() {
+            return Optional.ofNullable(engine);
+        }
+
+        public Optional<String> engineNameToUppercase(Engine engine) {
+            return Optional.ofNullable(engine).map(it -> it.getName().toUpperCase());
+        }
+
+        public static Optional<String> engineNameToUppercase2(Robot robot) {
+            return Optional
+                .ofNullable(robot)
+                .flatMap(Robot::getEngine)
+                .map(engine1 -> engine1.getName().toUpperCase() + " 2");
+        }
+    }
+
+    static class Battery {
+        private String version;
+
+        public Battery (String version) {
+            this.version = version;
+        }
+
+        public Battery () {
+        }
+
+        public String getVersion() {
+            return version;
+        }
     }
 }
