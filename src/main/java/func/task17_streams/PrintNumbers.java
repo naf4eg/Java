@@ -1,4 +1,4 @@
-package func.tack17_streams;
+package func.task17_streams;
 
 import java.util.Arrays;
 import java.util.List;
