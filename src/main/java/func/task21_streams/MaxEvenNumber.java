@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  */
 public class MaxEvenNumber {
     public static int findMaxEvenNumber(Collection<Integer> numbers) {
-        return numbers.stream().filter(num -> num % 2 == 0).max(Comparator.naturalOrder()).orElse(0); // write your code here
+        return numbers.stream().filter(num -> num % 2 == 0).max(Integer::compareTo).orElse(0); // write your code here
     }
 
     public static void main(String[] args) {
