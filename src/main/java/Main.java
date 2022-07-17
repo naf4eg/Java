@@ -11,10 +11,8 @@ import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
-        HashMap<String, String> stringStringHashMap = new HashMap<>();
-        stringStringHashMap.remove("Hello");
-        stringStringHashMap.put("World", "Hello");
-        stringStringHashMap.remove("ffr");
-        System.out.println(stringStringHashMap);
+
+        String s = "Java JAVA lkjdsjJKkj JavaZone".trim().toLowerCase();
+        System.out.println(s.contains("java"));
     }
 }
