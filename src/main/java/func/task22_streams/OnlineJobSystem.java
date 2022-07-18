@@ -21,8 +21,10 @@ import java.util.stream.Stream;
 public class OnlineJobSystem {
     public static long calculateNumberOfVacancies (ApplicantRequest request, Collection<JobDescription> jobs) {
 
-        return jobs.stream().filter(jobDescription -> jobDescription.getCompany().equals(request.getCompany())).filter(
-            jobDescription -> jobDescription.getRequiredExperienceYears() <= request.getExperienceYears()).count();
+        return jobs.stream()
+                   .filter(jobDescription -> jobDescription.getCompany().equals(request.getCompany()))
+                   .filter(jobDescription -> jobDescription.getRequiredExperienceYears() <= request.getExperienceYears())
+                   .count();
     }
 
     public static void main (String[] args) {
