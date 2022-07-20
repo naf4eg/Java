@@ -1,6 +1,7 @@
 package func.example_optional;
 
 import java.util.NoSuchElementException;
+import java.util.Objects;
 import java.util.Optional;
 
 /*
@@ -13,6 +14,38 @@ While Optional provides a lot of improvements, it's easy to misuse it. There are
 5) Last but not least: keep it simple, don't overuse Optional.
  */
 public class Main {
+    static class Ddto {
+        private String valllue;
+
+        public String getValllue () {
+            return valllue;
+        }
+
+        public void setValllue (String valllue) {
+            this.valllue = valllue;
+        }
+    }
+    static class Dto {
+        private String value;
+        private Ddto vallllue;
+
+        public Ddto getVallllue () {
+            return vallllue;
+        }
+
+        public void setVallllue (Ddto vallllue) {
+            this.vallllue = vallllue;
+        }
+
+        public String getValue () {
+            return value;
+        }
+
+        public void setValue (String value) {
+            this.value = value;
+        }
+    };
+    private static Dto dto = new Dto();
     public static void main (String[] args) {
         /* created empty Optional*/
         Optional<String> empty = Optional.empty();
@@ -131,6 +164,14 @@ public class Main {
             .map(Battery::getVersion)
             .orElse("Battery version is unknown");
         System.out.println("Battery version: " + version11); //Battery version is unknown
+
+        dto.setValue("3");
+        dto.setVallllue(new Ddto());
+        dto.vallllue.setValllue("44");
+        Optional.ofNullable(dto.getVallllue())
+                .flatMap(dto-> Optional.ofNullable(dto.getValllue()))
+                .or(()-> Optional.ofNullable("tutu"))
+                .ifPresent(va -> System.out.println("result " + va));
 
     }
 
