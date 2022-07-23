@@ -46,5 +46,22 @@ public class FilteringInStreams {
                                  .count();
         System.out.println(result);
 
+        System.out.println("============== takeWhile =================");
+
+        Stream.of(10, 13, 11, 7, 0, 5, 8, 11)
+              .takeWhile(n -> n > 0)
+              .forEach(System.out::println); // 10 13 11 7
+
+        System.out.println("=============== dropWhile ================");
+        //поведение не детерменирвано
+        Stream.of(10, 13, 11, 7, 0, 5, 8, 11)
+              .dropWhile(n -> n > 0)
+              .forEach(System.out::println); // 0 5 8 11
+
+        System.out.println("=============== skip ================");
+
+        Stream.of(10, 13, 11, 7, 0, 5, 8, 11)
+              .skip(3)
+              .forEach(System.out::println); // 7 0 5 8 11
     }
 }

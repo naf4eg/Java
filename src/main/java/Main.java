@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 public class Main {
     public static void main(String[] args) {
 
-        String s = "Java JAVA lkjdsjJKkj JavaZone".trim().toLowerCase();
-        System.out.println(s.contains("java"));
+        String str = " ";
+        System.out.println("empty: " + str.isEmpty() + "     blank: " + str.isBlank());
     }
 }
