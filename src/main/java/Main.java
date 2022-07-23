@@ -12,7 +12,7 @@ import java.util.stream.Stream;
 public class Main {
     public static void main(String[] args) {
 
-        String str = " ";
-        System.out.println("empty: " + str.isEmpty() + "     blank: " + str.isBlank());
+        var str = "string";
+        System.out.println(str.contains("stg"));
     }
 }
