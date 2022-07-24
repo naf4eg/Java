@@ -102,5 +102,20 @@ public class CollectingStreamElements {
         Long collect8 = logs.stream().collect(Collectors.counting());
         System.out.println(".collect(Collectors.counting()): " + collect8);
 
+        System.out.println("=============== Joining string streams ================");
+
+        String str1 = Stream.of("Ja", "va").collect(Collectors.joining());// Java
+        String str2 = Stream.of("Functions", "in", "Java").collect(Collectors.joining(" "));// Functions in Java
+        String str3 = Stream.of("Java", "Kotlin", "Scala").collect(Collectors.joining(
+            ", ",
+            "(",
+            ")"
+        ));// (Java, Kotlin, Scala)
+        String.join(" ", "Functions", "in", "Java"); // Functions in Java
+
+        System.out.println("Collectors.joining(): " + str1);
+        System.out.println("Collectors.joining(\" \"): " + str2);
+        System.out.println("Collectors.joining(" + "\", \"," + "\"(\"," + " \")\"" + " ): " + str3);
+
     }
 }
