@@ -1,8 +1,10 @@
 package func.example_streams;
 
 import java.time.Instant;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -82,8 +84,22 @@ public class CollectingStreamElements {
 
         Collectors.toMap(Log::getTimestamp, Function.identity(), (first, second) -> first, TreeMap::new); //4arg for implementation Map interfase. By default use HashMap
 
+        System.out.println("=============== Collecting summing, averaging, counting ================");
 
+        long collect4 = logs.stream().collect(Collectors.summingLong(Log::getDelay));
+        System.out.println(".collect(Collectors.summingLong(Log::getDelay)): " + collect4);
 
+        Double collect5 = logs.stream().collect(Collectors.averagingLong(Log::getDelay));
+        System.out.println(".collect(Collectors.averagingLong(Log::getDelay)): " + collect5);
+
+        Optional<Log> collect6 = logs.stream().collect(Collectors.minBy(Comparator.comparing(Log::getDelay)));
+        System.out.println(".collect(Collectors.minBy(Comparator.comparing(Log::getDelay))): " + collect6.get());
+
+        Optional<Log> collect7 = logs.stream().collect(Collectors.maxBy(Comparator.comparing(Log::getDelay)));
+        System.out.println(".collect(Collectors.maxBy(Comparator.comparing(Log::getDelay))): " + collect7.get());
+
+        Long collect8 = logs.stream().collect(Collectors.counting());
+        System.out.println(".collect(Collectors.counting()): " + collect8);
 
 
     }
