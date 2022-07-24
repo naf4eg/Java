@@ -1,6 +1,7 @@
 package func.example_streams;
 
 import java.time.Instant;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -100,7 +101,6 @@ public class CollectingStreamElements {
 
         Long collect8 = logs.stream().collect(Collectors.counting());
         System.out.println(".collect(Collectors.counting()): " + collect8);
-
 
     }
 }
